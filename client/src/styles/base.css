@@ -20,3 +20,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#chat{
+  display: flex;
+}
+
+#users{
+  border-right: 2px solid black;
+  padding:0 5px;
+  margin-right:5px;
+}

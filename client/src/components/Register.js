@@ -2,16 +2,17 @@ import React, { useState} from 'react'
 import { useAuth } from '../hooks'
 import { Link } from 'react-router-dom'
 
+
 export default props => {
 const [username, setUsername]=useState('')
 const [password, setPassword]=useState('')
 
-const { signin } = useAuth()
+const { reg } = useAuth()
 
 function handlesubmit(e){
     e.preventDefault()
 
-    signin(username,password) //after signin we want to redirect to another page
+    reg(username,password) //after signin we want to redirect to another page
     .then((resp)=>{
         props.history.push("/")
 
@@ -28,11 +29,11 @@ function handlesubmit(e){
 
     return (
         <div>
-            <Link to="/register">Register</Link>
+            <Link to="/login">Login</Link>
             <form onSubmit={handlesubmit}>
                 <input type="text" name ="username" placeholder="password" value={username} onChange={e=>setUsername(e.target.value)}/>
                 <input type="text" name = "password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)}/>
-                <button type="submit">Login</button>
+                <button type="submit">Register</button>
             </form>
         </div>
     )

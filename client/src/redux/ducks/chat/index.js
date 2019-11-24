@@ -1,67 +1,55 @@
-import { useEffect } from 'react'
-import io from "socket.io-client"
+import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
+import socket from "../../../lib/socket"
 
+const ADD_MESSAGE = 'chat/ADD_MESSAGE'
+const GET_USERS = 'chat/GET_USERS'
 
-//ip here
-const socket = io("http://192.168.0.24:8080",{
-    transports: ["websocket"]
-})
-
-const ADD_MESSAGE='chat/ADD_MESSAGE'
-
-const initialState={
-    messages: []
+const initialState = {
+    messages: [],
+    users: []
 }
 
-
-export default (state=initialState, action) =>{
-    switch(action.type)
-    {
+export default (state = initialState, action) => {
+    switch(action.type) {
         case ADD_MESSAGE:
-            return {...state, messages:[...state.messages, action.payload]}
+            return { ...state, messages: [...state.messages, action.payload]}
+        case GET_USERS:
+            return { ...state, users: action.payload}
         default:
-        return state
+            return state
     }
-
 }
 
-function addMessage(message){
+function getUsers(users) {
+    return {
+        type: GET_USERS,
+        payload: users
+    }
+}
+
+function addMessage(message) {
     return {
         type: ADD_MESSAGE,
-        payload:message
+        payload: message
     }
 }
 
-// function add(message)
-// {
-//     return dispatch =>{
-//         socket.emit ("message", "this is a socket message")
-//         socket.on("message",message => {
-//             console.log(message)
-//             dispatch(addMessage(message))
-//         })
-   
-//     }
-// }
-
-
-
-export function useChat(){
+export function useChat() {
     const dispatch = useDispatch()
-    const messages = useSelector (appState => appState.chatState.messages)
-    // const add = (message) => dispatch(add(message))
-    const added = (message) => socket.emit("message", message)
+    const messages = useSelector(appState => appState.chatState.messages)
+    const users = useSelector(appState => appState.chatState.users)
+    const add = (message) => socket.emit("message", message)
 
-    
-
-    useEffect(()=>{
+    useEffect(() => {
         socket.on("message", message => {
-            dispatch(addMessage(message))
+            dispatch(addMessage(message)) 
         })
-    
 
+        socket.on("users", users => {
+            dispatch(getUsers(users))
+        })
     }, [dispatch])
 
-    return { added, messages}
+    return { add, messages, users }
 }
