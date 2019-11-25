@@ -12,8 +12,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch(action.type) {
+        // case ADD_MESSAGE:
+        //     return { ...state, messages: [...state.messages, action.payload]}
         case ADD_MESSAGE:
-            return { ...state, messages: [...state.messages, action.payload]}
+            return { ...state, messages: [action.payload, ...state.messages]}
         case GET_USERS:
             return { ...state, users: action.payload}
         default:

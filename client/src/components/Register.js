@@ -1,7 +1,7 @@
 import React, { useState} from 'react'
 import { useAuth } from '../hooks'
 import { Link } from 'react-router-dom'
-
+import "../styles/base.css"
 
 export default props => {
 const [username, setUsername]=useState('')
@@ -28,13 +28,22 @@ function handlesubmit(e){
 }
 
     return (
-        <div>
-            <Link to="/login">Login</Link>
+        <div className="reg">
+            <h1> Sign up</h1>
             <form onSubmit={handlesubmit}>
-                <input type="text" name ="username" placeholder="password" value={username} onChange={e=>setUsername(e.target.value)}/>
-                <input type="text" name = "password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)}/>
-                <button type="submit">Register</button>
+                <div className="inputs">
+                    <input type="text" name ="username" placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)}/>
+                    <input type="text" name = "password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)}/>
+                </div>
+                <div className="button">
+                    <button type="submit">Register</button>
+                </div>
             </form>
+            <div className="toTheOtherForm">
+            <p> Already registered? </p>
+            <p className="toLogin"><Link to="/login">Login</Link></p>
+            </div>
+
         </div>
     )
 }

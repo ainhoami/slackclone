@@ -27,13 +27,22 @@ function handlesubmit(e){
 }
 
     return (
-        <div>
-            <Link to="/register">Register</Link>
+        <div className="reg">
+        <h1> Sign in</h1>
+   
             <form onSubmit={handlesubmit}>
-                <input type="text" name ="username" placeholder="password" value={username} onChange={e=>setUsername(e.target.value)}/>
-                <input type="text" name = "password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)}/>
+            <div className="inputs">
+                <input type="text" name ="username" placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)}/>
+                <input type="text" name = "password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)}/>
+            </div>
+            <div className="button">
                 <button type="submit">Login</button>
+            </div>
             </form>
+            <div className="toTheOtherForm">
+            <p> Don't have a user? </p>
+            <p className="toLogin"> <Link to="/register">Register</Link></p>
+            </div>
         </div>
     )
 }
